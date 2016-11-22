@@ -1,4 +1,4 @@
-#gulp-scss-lint
+# gulp-multi-process
 [![Build Status](https://travis-ci.org/juanfran/gulp-multi-process.svg)](https://travis-ci.org/juanfran/gulp-multi-process)
 > Run gulp tasks in separate CPU processes
 
