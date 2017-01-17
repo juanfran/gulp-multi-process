@@ -7,7 +7,7 @@ var gulpMultiProcess = function(tasks, cb) {
   var code = 0;
 
   tasks.forEach(function(taskName) {
-    var worker = spawn(process.argv[1], [taskName] , { stdio: 'inherit' });
+    var worker = spawn(process.execPath, [process.argv[1], taskName] , { stdio: 'inherit' });
 
     worker.on('exit', function (workerCode) {
       if(workerCode !== 0)  {
