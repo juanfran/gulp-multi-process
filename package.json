@@ -1,6 +1,6 @@
 {
   "name": "gulp-multi-process",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "homepage": "http://github.com/juanfran/gulp-multi-process",
   "repository": "git://github.com/juanfran/gulp-multi-process.git",
   "author": {
@@ -17,12 +17,19 @@
     "performance",
     "child-process",
     "multi-process",
-    "threads"
+    "threads",
+    "spawn",
+    "fork",
+    "gulp",
+    "parallel"
   ],
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.4.1",
     "gulp": "^3.9.0",
     "mocha": "^2.3.4"
+  },
+  "dependencies": {
+    "async.queue": "^0.5.2"
   }
 }
