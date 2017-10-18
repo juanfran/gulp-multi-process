@@ -33,3 +33,4 @@ gulp.task('multi', function(cb) {
 ### Warning
 
 Run task in multiple processes is not always good for performance because spawn a different node processes is slow. It also depends on how long time it takes to require your `gulpfile`.
+Keep in mind that you can pass `true` as a third parameter to `gulpMultiProcess` fn in order to get optimal preformance. This will launch one process per core, and if there will be more of them than the number of cores on your machine it will put others into queue. When one process will finish its operation, the next one will be on launched.
