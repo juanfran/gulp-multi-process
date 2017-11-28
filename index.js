@@ -9,7 +9,7 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective) {
   var cpusNumber;
   var q;
   var createWorker = function(onExit, taskName) {
-      var args = [process.argv[1], taskName];
+      var args = process.execArgv.concat([process.argv[1], taskName]);
       var worker;
       process.argv.forEach(function (val) {
         if(val[0] === '-' && val !== '--gulpfile') {
