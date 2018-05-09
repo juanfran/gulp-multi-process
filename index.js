@@ -1,6 +1,7 @@
 'use strict';
 
 var spawn = require('child_process').spawn;
+const { Writable } = require('stream');
 
 var gulpMultiProcess = function(tasks, cb, cpusRespective) {
   var code = 0;
@@ -8,6 +9,7 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective) {
   var each;
   var cpusNumber;
   var q;
+
   var createWorker = function(onExit, taskName) {
       var args = process.execArgv.concat([process.argv[1], taskName]);
       var worker;
@@ -16,7 +18,28 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective) {
           args.push(val);
         }
       });
-      worker = spawn(process.execPath, args , { stdio: 'inherit' });
+
+      var writable = new Writable();
+      writable._write = function (str) {
+/*           var args = [].slice.call(arguments);
+          args[0] = 'xxx(' + str + ')xxx)';           
+ */
+        arguments[0].write('---->' + arguments[0].toString());
+
+        process.stdout.write.apply(process.stdout, arguments);
+      };    
+
+      console.log('run ', taskName, args);
+      
+      worker = spawn(process.execPath, args , { stdio: [
+        process.stdin,
+        'pipe',
+        process.stderr
+      ]});
+
+
+      worker.stdout.pipe(writable);
+
       worker.on('exit', onExit);
   };
 
