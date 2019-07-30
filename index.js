@@ -2,7 +2,7 @@
 
 var spawn = require('child_process').spawn;
 
-var gulpMultiProcess = function(tasks, cb, cpusRespective) {
+var gulpMultiProcess = function(tasks, cb, cpusRespective, failOnFirstError) {
   var code = 0;
   var completed;
   var each;
@@ -24,6 +24,9 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective) {
     completed = 0;
     each = createWorker.bind(this, function (workerCode) {
       if(workerCode !== 0)  {
+        if (failOnFirstError) {
+          throw new Error('Task exited with code: ' + workerCode)
+        }
         code = workerCode;
       }
       completed++;
@@ -39,6 +42,9 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective) {
       createWorker(
         function (workerCode) {
           if(workerCode !== 0) {
+            if (failOnFirstError) {
+              throw new Error('Task exited with code: ' + workerCode)
+            }
             code = workerCode;
           }
           callback();
