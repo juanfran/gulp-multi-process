@@ -2,7 +2,7 @@
 
 var spawn = require('child_process').spawn;
 
-var gulpMultiProcess = function(tasks, cb, cpusRespective, failOnFirstError) {
+var gulpMultiProcess = function(tasks, cb, cpuRatio, failOnFirstError) {
   var code = 0;
   var completed;
   var each;
@@ -20,7 +20,7 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective, failOnFirstError) {
       worker.on('exit', onExit);
   };
 
-  if (!cpusRespective) {
+  if (!cpuRatio) {
     completed = 0;
     each = createWorker.bind(this, function (workerCode) {
       if(workerCode !== 0)  {
@@ -36,7 +36,7 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective, failOnFirstError) {
     });
     tasks.forEach(each);
   } else {
-    cpusNumber = require('os').cpus().length;
+    cpusNumber = Math.floor(require('os').cpus().length * cpuRatio);
     q = require('async.queue');
     q = q(function (taskName, callback) {
       createWorker(
