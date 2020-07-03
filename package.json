@@ -9,7 +9,7 @@
   "description": "Run gulp tasks in separate cpu processes",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "mocha ./test/main.js"
   },
   "keywords": [
     "gulpplugin",
@@ -25,9 +25,10 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.4.1",
-    "gulp": "^3.9.0",
-    "mocha": "^2.3.4"
+    "chai": "^4.2.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "mocha": "^6.2.2"
   },
   "dependencies": {
     "async.queue": "^0.5.2"
