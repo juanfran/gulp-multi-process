@@ -2,28 +2,40 @@
 var gulpMultiProcess = require('../index.js');
 var gulp = require('gulp');
 
-gulp.task('task1', function(cb) {
+function task1(done) {
   setTimeout(function() {
-    cb();
-  }, 50);
-});
+    done();
+  }, 250);
+}
 
-gulp.task('task2', function(cb) {
+exports.task1 = task1;
+
+function task2(done) {
   setTimeout(function() {
-    cb();
-  }, 50);
-});
+    done();
+  }, 250);
+}
 
-gulp.task('task3', function(cb) {
+exports.task2 = task2;
+
+function task3(done) {
   setTimeout(function() {
-    cb();
-  }, 50);
-});
+    done();
+  }, 250);
+}
 
-gulp.task('multi', function(cb) {
-  return gulpMultiProcess(['task1', 'task2', 'task3'], cb);
-});
+exports.task3 = task3;
 
-gulp.task('multi-cpus', function (cb) {
-  return gulpMultiProcess(['task1', 'task2', 'task3'], cb, true);
-});
+exports.single = gulp.series(task1 , task2, task3);
+
+function multi(done) {
+  return gulpMultiProcess(['task1', 'task2', 'task3'], done);
+}
+
+exports.multi = multi;
+
+function multiCpus(done) {
+  return gulpMultiProcess(['task1', 'task2', 'task3'], done, true);
+}
+
+exports.multiCpus = multiCpus;
