@@ -1,14 +1,11 @@
 'use strict';
 
-var spawn = require('child_process').spawn;
+const spawn = require('child_process').spawn;
 
-var gulpMultiProcess = function(tasks, cb, cpusRespective) {
+const gulpMultiProcess = function(tasks, cb, cpusRespective) {
   var code = 0;
-  var completed;
-  var each;
-  var cpusNumber;
-  var q;
-  var createWorker = function(onExit, taskName) {
+
+  const createWorker = function(onExit, taskName) {
       var args = process.execArgv.concat([process.argv[1], taskName]);
       var worker;
       process.argv.forEach(function (val) {
@@ -21,8 +18,8 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective) {
   };
 
   if (!cpusRespective) {
-    completed = 0;
-    each = createWorker.bind(this, function (workerCode) {
+    var completed = 0;
+    let each = createWorker.bind(this, function (workerCode) {
       if(workerCode !== 0)  {
         code = workerCode;
       }
@@ -33,9 +30,9 @@ var gulpMultiProcess = function(tasks, cb, cpusRespective) {
     });
     tasks.forEach(each);
   } else {
-    cpusNumber = require('os').cpus().length;
+    const cpusNumber = require('os').cpus().length;
     const queue = require('async/queue');
-    q = queue(function (taskName, callback) {
+    let q = queue(function (taskName, callback) {
       createWorker(
         function (workerCode) {
           if(workerCode !== 0) {

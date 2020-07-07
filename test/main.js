@@ -1,8 +1,8 @@
 'use strict';
-var exec = require('child_process').exec;
-var path = require('path');
-var chai = require('chai');
-var expect = chai.expect;
+const exec = require('child_process').exec;
+const path = require('path');
+const chai = require('chai');
+const expect = chai.expect;
 
 describe('gulp-multi-process', function() {
   it('run 3 task in serie', function(done) {
