@@ -30,7 +30,7 @@ const gulpMultiProcess = function(tasks, cb, cpusRespective) {
     });
     tasks.forEach(each);
   } else {
-    const cpusNumber = require('os').cpus().length;
+    const cpusNumber = typeof cpusRespective === 'number' ? cpusRespective : require('os').cpus().length;
     const queue = require('async/queue');
     let q = queue(function (taskName, callback) {
       createWorker(
